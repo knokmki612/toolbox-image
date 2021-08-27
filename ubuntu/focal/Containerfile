@@ -1,0 +1,20 @@
+FROM docker.io/library/ubuntu:focal
+
+ENV NAME=ubuntu-toolbox VERSION=35
+LABEL com.github.containers.toolbox="true" \
+      com.redhat.component="$NAME" \
+      name="$NAME" \
+      version="$VERSION" \
+      usage="This image is meant to be used with the toolbox command" \
+      summary="Base image for creating Ubuntu toolbox containers" \
+      maintainer="Kimiaki Kuno <knokmki612@gmail.com>"
+
+COPY extra-packages /
+
+RUN apt-get update -y \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y $(cat extra-packages) \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN rm /extra-packages
+
+CMD /bin/sh
