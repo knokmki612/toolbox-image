@@ -9,6 +9,8 @@ LABEL com.github.containers.toolbox="true" \
       summary="Base image for creating Ubuntu toolbox containers" \
       maintainer="Kimiaki Kuno <knokmki612@gmail.com>"
 
+COPY README.md /
+
 COPY extra-packages /
 
 RUN apt-get update -y \
@@ -16,5 +18,11 @@ RUN apt-get update -y \
  && rm -rf /var/lib/apt/lists/*
 
 RUN rm /extra-packages
+
+# ref https://github.com/containers/toolbox/pull/483
+RUN sed -i '/^hosts:/s/$/ myhostname/' /etc/nsswitch.conf
+
+# ref https://github.com/containers/toolbox/pull/483
+RUN sed -i '/^auth.*pam_unix.so/s/nullok_secure/try_first_pass nullok/' /etc/pam.d/common-auth
 
 CMD /bin/sh

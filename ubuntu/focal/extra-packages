@@ -14,6 +14,7 @@ keyutils
 less
 libcap2-bin
 libnss-mdns
+libnss-myhostname
 lsof
 man-db
 manpages
