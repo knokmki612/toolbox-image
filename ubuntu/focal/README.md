@@ -5,4 +5,3 @@
     - krb5
     - vte
 - TODO: list missing-docs
-- TODO: copy README.md to image
